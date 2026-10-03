@@ -3,9 +3,9 @@
 This template is a vendored snapshot of:
 
 - Repository: <https://github.com/fredgis/FabricAtlas>
-- Version: `1.12.1`
-- Source commit: `9f2a2fd62b6a24a5062a4041d7da92fc8e5753ab`
-- Vendored: 10 September 2026
+- Version: `2.0.0`
+- Source commit: `6ee746b066ac238d0628d85ac68e5f9b9714c105`
+- Vendored: 3 October 2026
 
 The Awesome Rayfin copy adds gallery metadata, a gallery manifest, template
 identifiers and template-specific setup instructions. Those changes are kept
