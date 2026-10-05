@@ -2,7 +2,7 @@ apiVersion: v1
 metadata:
   name: fabric-atlas
   displayName: Fabric Atlas
-  description: Workspace catalog, lineage, governance and access review for Microsoft Fabric, backed by validated Rayfin snapshots.
+  description: Multi-workspace Fabric catalog, lineage, governance and access review backed by validated Rayfin snapshots.
 entries:
   - path: .
     name: Fabric Atlas

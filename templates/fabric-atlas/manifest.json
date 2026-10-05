@@ -4,7 +4,7 @@
   "services": {
     "auth": true,
     "data": true,
-    "storage": true,
+    "storage": false,
     "staticHosting": true
   },
   "hasDabSchema": true,
