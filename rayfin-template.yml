@@ -16,9 +16,6 @@ entries:
   - path: templates/fabric-atlas
     name: Fabric Atlas
     description: Workspace catalog, lineage, governance and access review for Microsoft Fabric, backed by validated Rayfin snapshots.
-  - path: templates/fabric-capacity-copilot
-    name: Fabric Capacity Copilot
-    description: Investigate Microsoft Fabric capacity hotspots and turn sample telemetry into evidence-based remediation actions.
   - path: templates/field-technician
     name: Field Technician App
     description: Field service management app with role-based dashboards for dispatchers and technicians, job tracking, customer lookup, and dual-mode auth (local password + Fabric)
