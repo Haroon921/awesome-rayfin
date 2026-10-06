@@ -112,10 +112,11 @@ function updateReadmeTable(templates) {
   if (!existsSync(readmePath)) return null;
 
   const readme = readFileSync(readmePath, "utf8");
+  const newline = readme.includes("\r\n") ? "\r\n" : "\n";
 
   // Match the templates table between the header row and the next blank line or section
   const tableHeaderRe =
-    /(\| Template\s*\| Description\s*\| Auth\s*\| Data\s*\| Stack\s*\|\n\|[-:|\s]+\|\n)([\s\S]*?)(\n\n)/;
+    /(\| Template\s*\| Description\s*\| Auth\s*\| Data\s*\| Stack\s*\|\r?\n\|[-:|\s]+\|\r?\n)([\s\S]*?)(\r?\n\r?\n)/;
   const match = readme.match(tableHeaderRe);
   if (!match) {
     console.warn("⚠️  Could not find templates table in README.md — skipping table update");
@@ -153,9 +154,9 @@ function updateReadmeTable(templates) {
       const stack = stackParts.length > 0 ? stackParts.join(", ") : "—";
       return `| **[${t.name}](./templates/${t.dirName})** | ${t.description} | ${auth} | ${data} | ${stack} |`;
     })
-    .join("\n");
+    .join(newline);
 
-  const updated = readme.replace(tableHeaderRe, `$1${rows}\n\n`);
+  const updated = readme.replace(tableHeaderRe, `$1${rows}${newline}${newline}`);
   return updated;
 }
 
@@ -165,6 +166,7 @@ function updateReadmeTable(templates) {
 
 const checkMode = process.argv.includes("--check");
 const templates = discoverTemplates();
+const normalizeNewlines = (value) => value.replace(/\r\n/g, "\n");
 
 if (templates.length === 0) {
   console.error("❌ No valid templates found in templates/");
@@ -179,7 +181,7 @@ let dirty = false;
 const rootManifestPath = join(ROOT, "rayfin-template.yml");
 const rootManifest = generateRootManifest(templates);
 const existingRoot = existsSync(rootManifestPath) ? readFileSync(rootManifestPath, "utf8") : "";
-if (existingRoot !== rootManifest) {
+if (normalizeNewlines(existingRoot) !== normalizeNewlines(rootManifest)) {
   if (checkMode) {
     console.error("❌ rayfin-template.yml is out of date. Run: node scripts/generate-manifest.mjs");
     dirty = true;
@@ -194,7 +196,7 @@ for (const t of templates) {
   const leafPath = join(TEMPLATES_DIR, t.dirName, "rayfin-template.yml");
   const leafManifest = generateLeafManifest(t);
   const existingLeaf = existsSync(leafPath) ? readFileSync(leafPath, "utf8") : "";
-  if (existingLeaf !== leafManifest) {
+  if (normalizeNewlines(existingLeaf) !== normalizeNewlines(leafManifest)) {
     if (checkMode) {
       console.error(`❌ templates/${t.dirName}/rayfin-template.yml is out of date.`);
       dirty = true;
